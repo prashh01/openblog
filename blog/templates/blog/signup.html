@@ -1,0 +1,44 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="container d-flex justify-content-center my-5" style="background-color:#CCFFFF">  
+    <div class="row my-2 mx-2 main">
+        <div class="col-md-6 col-12 mycol">
+        
+            <img src="{% static 'blog/img/food1.jpg' %}" width="90%" height="98%" class="my-3">
+        </div>
+        <div class="col-md-6 col-8 xcol " style="min-height: 100px">
+            <b><h1 class=" my-2" style="text-align: center;">Join Us</h1></b>
+            <hr>
+            {% if messages %}
+                {% for message in messages %}
+                    <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5"  {% endif %}>{{message}} </p>
+                {% endfor %}
+            {% endif %}
+            <div class="card-body">
+                <form action="" method="Post" novalidate>
+                    <div class="card-body">
+                    {% csrf_token %}
+                    {% for fm in form %}
+                    <div class="form-group">
+                        {{fm.label_tag}} {{ fm }} <small class="text-warning "> {{ fm.errors|striptags}}</small>
+                        <br>
+                    </div>
+                    {% endfor %}
+                    <input type="Submit" value="Submit">
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <p class="alert alert-danger my-3">{{ error }}</p> 
+                        {% endfor %}
+                    {% endif %}
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
